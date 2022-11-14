@@ -1,10 +1,12 @@
 import { FC, PropsWithChildren, useEffect, useReducer } from 'react';
 import { useNavigate } from "react-router-dom";
 import axios from 'axios';
-import Cookies from 'js-cookie';
+
 import { tesloApi } from '../../api';
 import { IUser } from '../../interfaces';
 import { AuthContext, authReducer } from './';
+
+const  Cookies = require('js-cookie');
 
 export interface AuthState {
     isLoggedIn: boolean;
