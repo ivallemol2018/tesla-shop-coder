@@ -1,5 +1,5 @@
 const ContenedorMongoose = require('../../contenedores/MongoClient')
-const orderModel = require('./models/OrderModel')
+const orderModel = require('./models/orderModel')
 
 class OrderDaoMongoose  {
   constructor() {
