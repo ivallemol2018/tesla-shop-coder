@@ -6,7 +6,7 @@ import { tesloApi } from '../../api';
 import { IUser } from '../../interfaces';
 import { AuthContext, authReducer } from './';
 
-const  Cookies = require('js-cookie');
+import Cookies from 'universal-cookie'
 
 export interface AuthState {
     isLoggedIn: boolean;
@@ -26,6 +26,7 @@ export const AuthProvider: FC<Props> = ({ children }) => {
 
     const [state, dispatch] = useReducer(authReducer, Auth_INITIAL_STATE)
     const navigate = useNavigate()
+    const cookies = new Cookies();
 
     useEffect(()=>{
         checkToken()
@@ -35,10 +36,10 @@ export const AuthProvider: FC<Props> = ({ children }) => {
         try {
             const { data } = await tesloApi.get('/user/validate-token')
             const { token, user } = data;
-            Cookies.set('token', token)
+            cookies.set('token', token)
             dispatch({ type: '[Auth] - Login', payload: user });
         } catch (error) {
-            Cookies.remove('checkToken')
+            cookies.remove('checkToken')
         }
     }
 
@@ -46,7 +47,7 @@ export const AuthProvider: FC<Props> = ({ children }) => {
         try {
             const { data } = await tesloApi.post('/user/login', { username: email, password })
             const { token, user } = data;
-            Cookies.set('token', token)
+            cookies.set('token', token)
             dispatch({ type: '[Auth] - Login', payload: user });
             return true
         } catch (error) {
@@ -55,18 +56,18 @@ export const AuthProvider: FC<Props> = ({ children }) => {
     }
 
     const logout = () => {
-        Cookies.remove('firstName');
-        Cookies.remove('lastName');
-        Cookies.remove('address');
-        Cookies.remove('address2');
-        Cookies.remove('zip');
-        Cookies.remove('city');
-        Cookies.remove('country');
-        Cookies.remove('phone');
+        cookies.remove('firstName');
+        cookies.remove('lastName');
+        cookies.remove('address');
+        cookies.remove('address2');
+        cookies.remove('zip');
+        cookies.remove('city');
+        cookies.remove('country');
+        cookies.remove('phone');
 
 
-        Cookies.remove('cart')
-        Cookies.remove('token')
+        cookies.remove('cart')
+        cookies.remove('token')
         navigate(0)
 
     }
@@ -80,7 +81,7 @@ export const AuthProvider: FC<Props> = ({ children }) => {
         try {
             const { data } = await tesloApi.post('/user/signup', { name, username: email, password, address, phone, age})
             const { token, user } = data;
-            Cookies.set('token', token)
+            cookies.set('token', token)
             dispatch({ type: '[Auth] - Login', payload: user });
 
             return {

@@ -5,7 +5,7 @@ import { CartList, OrderSummary } from '../../components/cart'
 import { ShopLayout } from '../../components/layouts'
 import { CartContext } from '../../context'
 import { countries } from '../../utils'
-import Cookies from 'js-cookie'
+import Cookies from 'universal-cookie'
 
 
 const SummaryPage = () => {
@@ -16,8 +16,10 @@ const SummaryPage = () => {
     const [isPosting, setIsPosting] = useState(false)
     const [errorMessage, setErrorMessage] = useState('')
 
+    const cookies = new Cookies();
+
     useEffect(() => {
-        if (!Cookies.get('firstName')) {
+        if (!cookies.get('firstName')) {
             navigate('/checkout/address')
         }
     }, [navigate])

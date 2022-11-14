@@ -4,8 +4,10 @@ import { useForm } from "react-hook-form";
 import { Box, Button, FormControl, Grid, MenuItem, TextField, Typography } from '@mui/material'
 import { ShopLayout } from '../../components/layouts'
 import { countries } from '../../utils'
-import Cookie from 'js-cookie';
+import Cookies from 'universal-cookie'
 import { CartContext } from '../../context';
+
+const cookies = new Cookies();
 
 type FormData = {
     firstName: string;
@@ -20,14 +22,14 @@ type FormData = {
 
 const getAddressFromCookies = (): FormData => {
     return {
-        firstName: Cookie.get('firstName') || '',
-        lastName: Cookie.get('lastName') || '',
-        address: Cookie.get('address') || '',
-        address2: Cookie.get('address2') || '',
-        zip: Cookie.get('zip') || '',
-        city: Cookie.get('city') || '',
-        country: Cookie.get('country') || '',
-        phone: Cookie.get('phone') || '',
+        firstName: cookies.get('firstName') || '',
+        lastName: cookies.get('lastName') || '',
+        address: cookies.get('address') || '',
+        address2: cookies.get('address2') || '',
+        zip: cookies.get('zip') || '',
+        city: cookies.get('city') || '',
+        country: cookies.get('country') || '',
+        phone: cookies.get('phone') || '',
     }
 }
 
@@ -132,7 +134,7 @@ const AddressPage = () => {
                                 select
                                 variant='filled'
                                 label='Pais'
-                                defaultValue={ Cookie.get('country') || countries[0].code  }
+                                defaultValue={ cookies.get('country') || countries[0].code  }
                                 {...register('country', {
                                     required: 'Este camo es requerido',
                                 })
