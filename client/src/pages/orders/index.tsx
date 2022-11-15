@@ -10,6 +10,7 @@ import { ShopLayout } from '../../components/layouts'
 import { ShippingAddress } from '../../interfaces';
 import { tesloApi } from '../../api';
 
+
 export type OrderResponseBody = {
   id: string;
   status:
@@ -127,7 +128,7 @@ const OrderPage = () => {
                                   purchase_units: [
                                     {
                                       amount: {
-                                        value: `${order.total}`,
+                                        value: `${ order.total.toFixed(2)}`,
                                       },
                                     },
                                   ],

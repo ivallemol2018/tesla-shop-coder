@@ -79,8 +79,8 @@ router.post('/pay', async (request, response) => {
 
 
 
-    if( order.total !== Number(data.purchase_units[0].amount.value)){
-      return response.status(400).json({message: 'Los montos de Paypal y nuestra orden no son iguales'})
+    if( Number(order.total.toFixed(2)) !== Number(data.purchase_units[0].amount.value)){
+      return response.status(400).json({message: `Los montos de Paypal y nuestra orden no son iguales`})
     }
 
     order.transactionId = transactionId;

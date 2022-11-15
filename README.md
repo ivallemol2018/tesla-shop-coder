@@ -80,6 +80,14 @@ de datos
 ```sh
 Method POST  http://localhost:3000/api/seed
 ```
+Al inicializar la base de datos se crea 2 cuentas predeterminadas
+```sh
+email : ivallemol@gmail.com
+role  : admin
+
+email : molina_valle@hotmail.com
+role  : client
+```
 
 ## Deploy
 
